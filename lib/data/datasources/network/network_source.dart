@@ -13,7 +13,8 @@ abstract class ApiService {
     final dio = Dio(
       BaseOptions(
         // baseUrl: 'https://cuaca-gempa-rest-api.vercel.app/',
-        baseUrl: Flavor.I.getString(Keys.apiUrl) ?? 'https://jsonplaceholder.typicode.com/',
+        baseUrl:
+            Flavor.I.getString(Keys.apiUrl) ?? 'https://lk21-api.cyclic.app/',
         sendTimeout: const Duration(milliseconds: 1000 * 60 * 3),
         connectTimeout: const Duration(milliseconds: 1000 * 60 * 3),
         receiveTimeout: const Duration(milliseconds: 1000 * 60 * 3),
@@ -32,7 +33,8 @@ abstract class ApiService {
   }
 
   @lazySingleton
-  InternetConnectionChecker internetConnectionChecker() => InternetConnectionChecker();
+  InternetConnectionChecker internetConnectionChecker() =>
+      InternetConnectionChecker();
 
   @lazySingleton
   ImagePicker get imagePicker => ImagePicker();

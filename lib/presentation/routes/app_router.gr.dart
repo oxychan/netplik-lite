@@ -39,6 +39,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SplashPage(),
       );
     },
+    MovieRoute.name: (routeData) {
+      return AutoRoutePage(
+        routeData: routeData,
+        child: const MoviePage(),
+      );
+    },
   };
 }
 
@@ -94,6 +100,20 @@ class SplashRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MoviePage]
+class MovieRoute extends PageRouteInfo<void> {
+  const MovieRoute({List<PageRouteInfo>? children})
+      : super(
+          MovieRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MovieRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

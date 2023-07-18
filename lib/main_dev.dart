@@ -12,7 +12,7 @@ void main() {
     color: Colors.green,
     name: 'PREVIEW',
     properties: {
-      Keys.apiUrl: 'https://jsonplaceholder.typicode.com/',
+      Keys.apiUrl: 'https://lk21-api.cyclic.app/',
       // Keys.apiKey: 'jksdhfkjhs83rjkh324kj23h4',
       Configs.customKey: 'value',
     },

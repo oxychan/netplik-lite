@@ -10,6 +10,7 @@ class BaseScaffold extends StatelessWidget {
     this.padding,
     this.floatingActionButton,
     this.floatingActionButtonLocation = FloatingActionButtonLocation.endFloat,
+    this.bottomNavigationBar,
   }) : super(key: key);
 
   final Widget body;
@@ -17,6 +18,7 @@ class BaseScaffold extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation floatingActionButtonLocation;
+  final BottomNavigationBar? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class BaseScaffold extends StatelessWidget {
       ),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

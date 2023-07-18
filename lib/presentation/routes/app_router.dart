@@ -19,5 +19,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: HomeRoute.page),
     AutoRoute(page: FormRoute.page),
     AutoRoute(page: PostRoute.page),
+    AutoRoute(page: MovieRoute.page),
+    
   ];
 }

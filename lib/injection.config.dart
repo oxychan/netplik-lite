@@ -17,6 +17,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i7;
 
 import 'application/bloc/pagination_bloc.dart' as _i17;
+import 'application/bloc/movie_bloc.dart' as _i19;
 import 'common/network/network_info.dart' as _i8;
 import 'common/utils/image_resize.dart' as _i6;
 import 'data/datasources/network/network_source.dart' as _i18;
@@ -28,9 +29,14 @@ import 'data/datasources/remote_datasources/quake_remote/quake_remote.dart'
     as _i13;
 import 'data/datasources/remote_datasources/quake_remote/quake_remote_impl.dart'
     as _i14;
+import 'data/datasources/remote_datasources/movie_remote/movie_remote.dart'
+    as _i20;
+import 'data/datasources/remote_datasources/movie_remote/movie_remote_impl.dart'
+    as _i21;
 import 'data/datasources/session/session_source.dart' as _i9;
 import 'data/repositories/post_repository.dart' as _i12;
 import 'data/repositories/quake_repository.dart' as _i15;
+import 'data/repositories/movie_repository.dart' as _i22;
 import 'presentation/pages/home/cubit/home_cubit.dart' as _i16;
 import 'presentation/routes/app_router.dart' as _i3;
 
@@ -76,6 +82,17 @@ _i1.GetIt $initGetIt(
   gh.factory<_i16.HomeCubit>(() => _i16.HomeCubit(gh<_i15.QuakeRepository>()));
   gh.factory<_i17.PaginationBloc>(
       () => _i17.PaginationBloc(gh<_i12.PostRepository>()));
+
+  // for movie
+  gh.lazySingleton<_i20.MovieRemote>(() => _i21.MovieRemoteImpl(
+        gh<_i4.Dio>(),
+        gh<_i9.SessionSource>(),
+      ));
+  gh.lazySingleton<_i22.MovieRepository>(() => _i22.MovieRepository(
+        gh<_i8.NetworkInfo>(),
+        gh<_i20.MovieRemote>(),
+      ));
+  gh.factory<_i19.MovieBloc>(() => _i19.MovieBloc(gh<_i22.MovieRepository>()));
   return getIt;
 }
 
