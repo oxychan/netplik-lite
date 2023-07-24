@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../pages/pages.dart';
@@ -20,6 +21,6 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: FormRoute.page),
     AutoRoute(page: PostRoute.page),
     AutoRoute(page: MovieRoute.page),
-    
+    AutoRoute(page: MovieDetailRoute.page, path: '/movies/:movieId'),
   ];
 }

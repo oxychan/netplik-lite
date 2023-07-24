@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:next_starter/application/bloc/movie_bloc.dart';
@@ -7,7 +8,9 @@ import 'package:next_starter/common/widgets/row_loading_widget.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/base/base_scaffold.dart';
 import 'package:next_starter/presentation/components/card/movie_card.dart';
+import 'package:next_starter/presentation/routes/app_router.dart';
 
+@RoutePage()
 class MoviePage extends StatelessWidget {
   const MoviePage({super.key});
 
@@ -64,7 +67,7 @@ class _MovieViewState extends State<MovieView> {
         toolbarHeight: 80,
         title: const Center(
           child: Text(
-            'Netplik Lite',
+            'Moview :3',
             style: TextStyle(color: Colors.black),
           ),
         ),
@@ -86,20 +89,50 @@ class _MovieViewState extends State<MovieView> {
                     )
                   : Column(
                       children: [
-                        // TextFormField(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              if (value == "") {
+                                state.movies.clear();
+                                context.read<MovieBloc>().add(FetchMovies());
+                              } else {
+                                state.movies.clear();
+                                context
+                                    .read<MovieBloc>()
+                                    .add(SearchMovies(value));
+                              }
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  const Color.fromARGB(179, 218, 218, 218),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: "Input the title...",
+                              suffix: const Icon(Icons.search),
+                            ),
+                          ),
+                        ),
                         Expanded(
                           child: ListView.separated(
                             itemBuilder: (context, index) {
                               return index >= state.movies.length
                                   ? const RowLoadingWidget()
                                   : MovieCard(
-                                      title: state.movies[index].id,
-                                      rating: state.movies[index].rating,
-                                      genres: state.movies[index].genres,
+                                      title: state.movies[index].id ?? "",
+                                      rating: state.movies[index].rating ?? "",
+                                      genres: state.movies[index].genres ?? [],
+                                      onTap: () {
+                                        context.pushRoute(
+                                          MovieDetailRoute(
+                                              movieId:
+                                                  state.movies[index].id ?? ""),
+                                        );
+                                      },
                                     );
-                              //  ListTile(
-                              //     title: Text(state.movies[index].id),
-                              //   );
                             },
                             itemCount: state.hasReachedMax
                                 ? state.movies.length

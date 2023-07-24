@@ -8,3 +8,9 @@ abstract class MovieEvent extends Equatable {
 }
 
 class FetchMovies extends MovieEvent {}
+
+class SearchMovies extends MovieEvent {
+  final String title;
+
+  const SearchMovies(this.title);
+}

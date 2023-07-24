@@ -7,14 +7,14 @@ String movieModelToJson(List<MovieModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MovieModel {
-  String id;
-  String title;
-  Type type;
-  PosterImg posterImg;
-  String rating;
-  String url;
-  QualityResolution qualityResolution;
-  List<String> genres;
+  String? id;
+  String? title;
+  Type? type;
+  PosterImg? posterImg;
+  String? rating;
+  String? url;
+  QualityResolution? qualityResolution;
+  List<String>? genres;
 
   MovieModel({
     required this.id,
@@ -51,13 +51,15 @@ class MovieModel {
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         id: json["_id"],
         title: json["title"],
-        type: typeValues.map[json["type"]]!,
-        posterImg: posterImgValues.map[json["posterImg"]]!,
+        type: typeValues.map[json["type"]] ?? Type.MOVIE,
+        posterImg:
+            posterImgValues.map[json["posterImg"]] ?? PosterImg.HTTPS_UNDEFINED,
         rating: json["rating"],
         url: json["url"],
         qualityResolution:
-            qualityResolutionValues.map[json["qualityResolution"]]!,
-        genres: List<String>.from(json["genres"].map((x) => x)),
+            qualityResolutionValues.map[json["qualityResolution"]] ??
+                QualityResolution.HD,
+        genres: List<String>.from(json["genres"].map((x) => x)) ?? [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +70,7 @@ class MovieModel {
         "rating": rating,
         "url": url,
         "qualityResolution": qualityResolutionValues.reverse[qualityResolution],
-        "genres": List<dynamic>.from(genres.map((x) => x)),
+        "genres": List<dynamic>.from(genres!.map((x) => x)),
       };
 }
 

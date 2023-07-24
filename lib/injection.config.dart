@@ -16,28 +16,29 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i7;
 
-import 'application/bloc/pagination_bloc.dart' as _i17;
-import 'application/bloc/movie_bloc.dart' as _i19;
+import 'application/bloc/movie_bloc.dart' as _i20;
+import 'application/bloc/movie_detail_bloc.dart' as _i21;
+import 'application/bloc/pagination_bloc.dart' as _i22;
 import 'common/network/network_info.dart' as _i8;
 import 'common/utils/image_resize.dart' as _i6;
-import 'data/datasources/network/network_source.dart' as _i18;
-import 'data/datasources/remote_datasources/post_remote/post_remote.dart'
-    as _i10;
-import 'data/datasources/remote_datasources/post_remote/post_remote_impl.dart'
-    as _i11;
-import 'data/datasources/remote_datasources/quake_remote/quake_remote.dart'
-    as _i13;
-import 'data/datasources/remote_datasources/quake_remote/quake_remote_impl.dart'
-    as _i14;
+import 'data/datasources/network/network_source.dart' as _i23;
 import 'data/datasources/remote_datasources/movie_remote/movie_remote.dart'
-    as _i20;
+    as _i10;
 import 'data/datasources/remote_datasources/movie_remote/movie_remote_impl.dart'
-    as _i21;
+    as _i11;
+import 'data/datasources/remote_datasources/post_remote/post_remote.dart'
+    as _i13;
+import 'data/datasources/remote_datasources/post_remote/post_remote_impl.dart'
+    as _i14;
+import 'data/datasources/remote_datasources/quake_remote/quake_remote.dart'
+    as _i16;
+import 'data/datasources/remote_datasources/quake_remote/quake_remote_impl.dart'
+    as _i17;
 import 'data/datasources/session/session_source.dart' as _i9;
-import 'data/repositories/post_repository.dart' as _i12;
-import 'data/repositories/quake_repository.dart' as _i15;
-import 'data/repositories/movie_repository.dart' as _i22;
-import 'presentation/pages/home/cubit/home_cubit.dart' as _i16;
+import 'data/repositories/movie_repository.dart' as _i12;
+import 'data/repositories/post_repository.dart' as _i15;
+import 'data/repositories/quake_repository.dart' as _i18;
+import 'presentation/pages/home/cubit/home_cubit.dart' as _i19;
 import 'presentation/routes/app_router.dart' as _i3;
 
 // ignore_for_file: unnecessary_lambdas
@@ -63,37 +64,37 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i8.NetworkInfo>(
       () => _i8.NetworkInfoImpl(gh<_i7.InternetConnectionChecker>()));
   gh.lazySingleton<_i9.SessionSource>(() => _i9.SessionSource());
-  gh.lazySingleton<_i10.PostRemote>(() => _i11.PostRemoteImpl(
+  gh.lazySingleton<_i10.MovieRemote>(() => _i11.MovieRemoteImpl(
         gh<_i4.Dio>(),
         gh<_i9.SessionSource>(),
       ));
-  gh.lazySingleton<_i12.PostRepository>(() => _i12.PostRepository(
+  gh.lazySingleton<_i12.MovieRepository>(() => _i12.MovieRepository(
         gh<_i8.NetworkInfo>(),
-        gh<_i10.PostRemote>(),
+        gh<_i10.MovieRemote>(),
       ));
-  gh.lazySingleton<_i13.QuakeRemote>(() => _i14.QuakeRemoteImpl(
+  gh.lazySingleton<_i13.PostRemote>(() => _i14.PostRemoteImpl(
         gh<_i4.Dio>(),
         gh<_i9.SessionSource>(),
       ));
-  gh.lazySingleton<_i15.QuakeRepository>(() => _i15.QuakeRepository(
-        gh<_i13.QuakeRemote>(),
+  gh.lazySingleton<_i15.PostRepository>(() => _i15.PostRepository(
         gh<_i8.NetworkInfo>(),
+        gh<_i13.PostRemote>(),
       ));
-  gh.factory<_i16.HomeCubit>(() => _i16.HomeCubit(gh<_i15.QuakeRepository>()));
-  gh.factory<_i17.PaginationBloc>(
-      () => _i17.PaginationBloc(gh<_i12.PostRepository>()));
-
-  // for movie
-  gh.lazySingleton<_i20.MovieRemote>(() => _i21.MovieRemoteImpl(
+  gh.lazySingleton<_i16.QuakeRemote>(() => _i17.QuakeRemoteImpl(
         gh<_i4.Dio>(),
         gh<_i9.SessionSource>(),
       ));
-  gh.lazySingleton<_i22.MovieRepository>(() => _i22.MovieRepository(
+  gh.lazySingleton<_i18.QuakeRepository>(() => _i18.QuakeRepository(
+        gh<_i16.QuakeRemote>(),
         gh<_i8.NetworkInfo>(),
-        gh<_i20.MovieRemote>(),
       ));
-  gh.factory<_i19.MovieBloc>(() => _i19.MovieBloc(gh<_i22.MovieRepository>()));
+  gh.factory<_i19.HomeCubit>(() => _i19.HomeCubit(gh<_i18.QuakeRepository>()));
+  gh.factory<_i20.MovieBloc>(() => _i20.MovieBloc(gh<_i12.MovieRepository>()));
+  gh.factory<_i21.MovieDetailBloc>(
+      () => _i21.MovieDetailBloc(gh<_i12.MovieRepository>()));
+  gh.factory<_i22.PaginationBloc>(
+      () => _i22.PaginationBloc(gh<_i15.PostRepository>()));
   return getIt;
 }
 
-class _$ApiService extends _i18.ApiService {}
+class _$ApiService extends _i23.ApiService {}

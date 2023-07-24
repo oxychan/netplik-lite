@@ -39,7 +39,8 @@ class BaseRepository {
               AppError.validationError(message: message, errors: errors),
           unAuthorized: (message) => AppError.unAuthorized(message: message),
           network: () => const AppError.noInternet(),
-          database: (message) => AppError.serverError(message: message, code: 200),
+          database: (message) =>
+              AppError.serverError(message: message, code: 200),
         ));
       }
     } else {

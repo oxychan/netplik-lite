@@ -40,6 +40,7 @@ class BaseDioRemoteSource {
         _dio.options.headers.remove("Authorization");
       }
       final response = await request(_dio);
+      // logger.d(response);
 
       if (response.statusCode == 401) {
         await _session.deleteToken();
@@ -47,6 +48,7 @@ class BaseDioRemoteSource {
       if (response.statusCode! >= 200 || response.statusCode! < 300) {
         // if (response.data['status'] == "success") {
         // print('response.data: ${response.data['data']['data']}');
+        logger.d(response);
         return onResponse(response.data);
         // } else {
         //   throw ApiException.database(
@@ -54,9 +56,10 @@ class BaseDioRemoteSource {
         //   );
         // }
       } else {
-        throw const ApiException.serverException(message: 'UnExpected Error in status code!!!');
+        throw const ApiException.serverException(
+            message: 'UnExpected Error in status code!!!');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       var err = e.toApiException;
       // TODO: if auto redirect to login page
       // await err.maybeWhen(
@@ -74,7 +77,8 @@ class BaseDioRemoteSource {
       throw err;
     } catch (e) {
       logger.e(e);
-      throw const ApiException.serverException(message: 'UnExpected Error Occurred in dio!!!');
+      throw const ApiException.serverException(
+          message: 'UnExpected Error Occurred in dio!!!');
     }
   }
 }
