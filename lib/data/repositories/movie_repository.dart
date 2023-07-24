@@ -13,9 +13,9 @@ class MovieRepository extends BaseRepository {
 
   final MovieRemote remote;
 
-  EitherResponse<List<MovieModel>> getMovies() {
+  EitherResponse<List<MovieModel>> getMovies(int page) {
     return handleNetworkCall(
-      call: remote.getMovies(),
+      call: remote.getMovies(page),
       onSuccess: (r) => r,
     );
   }

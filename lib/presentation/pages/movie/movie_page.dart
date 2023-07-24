@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:next_starter/application/bloc/movie_bloc.dart';
+import 'package:next_starter/application/movie/movie_bloc.dart';
 import 'package:next_starter/common/widgets/app_error_widget.dart';
 import 'package:next_starter/common/widgets/loading_indicator_widget.dart';
 import 'package:next_starter/common/widgets/row_loading_widget.dart';
@@ -17,7 +17,7 @@ class MoviePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => locator<MovieBloc>()..add(FetchMovies()),
+      create: (context) => locator<MovieBloc>()..add(const FetchMovies(10)),
       child: const MovieView(),
     );
   }
@@ -48,7 +48,7 @@ class _MovieViewState extends State<MovieView> {
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<MovieBloc>().add(FetchMovies());
+      context.read<MovieBloc>().add(const FetchMovies(10));
     }
   }
 
@@ -80,7 +80,8 @@ class _MovieViewState extends State<MovieView> {
             case MovieStatus.failure:
               return AppErrorWidget(
                 message: state.errorMessage,
-                onTap: () => context.read<MovieBloc>().add(FetchMovies()),
+                onTap: () =>
+                    context.read<MovieBloc>().add(const FetchMovies(10)),
               );
             case MovieStatus.success:
               return state.movies.isEmpty
@@ -92,10 +93,12 @@ class _MovieViewState extends State<MovieView> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: TextField(
-                            onChanged: (value) {
+                            onSubmitted: (value) {
                               if (value == "") {
                                 state.movies.clear();
-                                context.read<MovieBloc>().add(FetchMovies());
+                                context
+                                    .read<MovieBloc>()
+                                    .add(const FetchMovies(10));
                               } else {
                                 state.movies.clear();
                                 context

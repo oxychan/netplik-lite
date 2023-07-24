@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:next_starter/application/bloc/movie_detail_bloc.dart';
+import 'package:next_starter/application/movie_detail/movie_detail_bloc.dart';
 import 'package:next_starter/common/utils/title_utils.dart';
 import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/base/base_scaffold.dart';

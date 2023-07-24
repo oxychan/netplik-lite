@@ -13,10 +13,10 @@ class MovieRemoteImpl extends BaseDioRemoteSource implements MovieRemote {
   MovieRemoteImpl(super.dio, super.session);
 
   @override
-  Future<List<MovieModel>> getMovies() {
+  Future<List<MovieModel>> getMovies(int page) {
     return networkRequest(
       request: (dio) => dio.get(ApiPath.movies, queryParameters: {
-        'page': 8,
+        'page': page,
       }),
       onResponse: (json) => (json as List)
           .map<MovieModel>((movie) => MovieModel.fromJson(movie))

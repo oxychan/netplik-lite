@@ -16,8 +16,8 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i7;
 
-import 'application/bloc/movie_bloc.dart' as _i20;
-import 'application/bloc/movie_detail_bloc.dart' as _i21;
+import 'application/movie/movie_bloc.dart' as _i20;
+import 'application/movie_detail/movie_detail_bloc.dart' as _i21;
 import 'application/bloc/pagination_bloc.dart' as _i22;
 import 'common/network/network_info.dart' as _i8;
 import 'common/utils/image_resize.dart' as _i6;

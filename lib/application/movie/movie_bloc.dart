@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:next_starter/common/logging/logger.dart';
 import 'package:next_starter/data/models/movie/moview_model.dart';
 import 'package:next_starter/data/repositories/movie_repository.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -32,7 +34,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       FetchMovies event, Emitter<MovieState> emit) async {
     if (state.hasReachedMax) return;
 
-    final movies = await repository.getMovies();
+    final movies = await repository.getMovies(event.page);
     movies.fold(
       (l) => emit(
         state.copyWith(
@@ -62,6 +64,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     if (state.hasReachedMax) return;
 
     final movies = await repository.searchMovies(event.title);
+    logger.d(movies);
     movies.fold(
       (l) => emit(
         state.copyWith(
