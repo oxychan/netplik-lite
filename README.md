@@ -6,9 +6,9 @@ Simple flutter application to fetch API from [LK21 (Unofficial)](https://github.
 
 ## Screenshots
 
-![Movie Page](assets/images/movie_page.jpg){: width="168" height="256"}
-![Detail Page](assets/images/detail_page.jpg){: width="168" height="256"}
-![Detail Page Played](assets/images/detail_page_played.jpg){: width="168" height="256"}
+<img src="assets/images/movie_page.jpg" width="200" />
+<img src="assets/images/detail_page.jpg" width="200" />
+<img src="assets/images/detail_page_played.jpg" width="200" />
 
 ---
 
